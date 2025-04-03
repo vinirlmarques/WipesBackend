@@ -1,4 +1,3 @@
-
 # Gerenciamento de Produtos - API
 
 Este projeto é uma API para gerenciamento de produtos, construída com **Node.js**, **Express**, **MongoDB** e documentada com **Swagger**. A API oferece operações CRUD (Criar, Ler, Atualizar e Deletar) para gerenciar produtos.
@@ -43,7 +42,7 @@ Antes de rodar a aplicação, você precisará garantir que possui as seguintes 
    npm run dev
    ```
 
-   O servidor será iniciado em `http://localhost:3000`.
+   O servidor será iniciado em `http://localhost:4000`.
 
 ## Documentação da API
 
@@ -52,7 +51,7 @@ A documentação da API é gerada automaticamente com **Swagger**. Para visualiz
 1. Acesse a documentação no navegador:
 
    ```
-   http://localhost:3000/api-docs
+   http://localhost:4000/api-docs
    ```
 
 2. Use a interface do Swagger para testar os endpoints da API diretamente.
@@ -92,7 +91,7 @@ O projeto utiliza o **MongoDB** para armazenar as informações dos produtos. Po
 Você pode testar a API utilizando ferramentas como o **Postman** ou o próprio **Swagger UI**. Aqui está um exemplo de requisição para adicionar um novo produto:
 
 ```bash
-curl -X POST http://localhost:3000/api/products \
+curl -X POST http://localhost:4000/api/servers \
 -H "Content-Type: application/json" \
 -d '{
   "name": "Produto Exemplo",

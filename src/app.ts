@@ -1,20 +1,31 @@
-import express, { Application } from 'express';
-import bodyParser from 'body-parser';
-import productRoutes from './routes/productRoutes';
-import connectDB from './database/index';
-import { setupSwagger } from './swagger';
-
+import express, { Application } from "express";
+import cors from "cors";
+import serverRoutes from "./routes/serverRoutes";
+import { setupSwagger } from "./swagger";
 
 const app: Application = express();
 
-// Conecta ao banco de dados
-connectDB();
+// Middleware for parsing JSON requests
+app.use(express.json());
+
+// Enable CORS
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
+
+// Setup Swagger documentation
 setupSwagger(app);
 
-// Middleware para converter o corpo da requisição para JSON
-app.use(bodyParser.json());
+// Routes
+app.use("/api/servers", serverRoutes);
 
-// Rotas
-app.use('/api/products', productRoutes);
+// Basic health check route
+app.get("/api/health", (req, res) => {
+  res.json({ status: "OK" });
+});
 
 export default app;

@@ -1,17 +1,32 @@
-import mongoose from 'mongoose';
+import admin from "firebase-admin";
+import * as fs from "fs";
+import * as path from "path";
 
-const connectDB = async () => {
-  try {
-    // Substitua pela sua URI do MongoDB
-    const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/produtosDB';
+const serviceAccountPath = path.resolve(
+  __dirname,
+  "../../config/serviceAccountKey.json"
+);
 
-    await mongoose.connect(mongoURI);
+if (!fs.existsSync(serviceAccountPath)) {
+  console.error("❌ Firebase service account key file is missing.");
+  process.exit(1);
+}
 
-    console.log('MongoDB connected successfully');
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    process.exit(1); // Sair do processo com falha
-  }
-};
+let serviceAccount;
 
-export default connectDB;
+try {
+  serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf-8"));
+} catch (error) {
+  console.error("❌ Error parsing Firebase service account key:", error);
+  process.exit(1);
+}
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const db = admin.firestore();
+
+console.log("🔥 Firestore connected successfully!");
+
+export { db };
