@@ -29,5 +29,8 @@ yarn-debug.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-config/serviceAccountKey.json
+#Config
+config/
+
+
 
