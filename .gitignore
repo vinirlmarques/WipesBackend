@@ -30,7 +30,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 #Config
-config/
+config/serviceAccountKey.json
+
 
 
 
